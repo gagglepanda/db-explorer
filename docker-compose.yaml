@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  riak:
+    image: basho/riak-kv:latest
+    container_name: riak
+    ports:
+      - "8087:8087"
+      - "8098:8098"
+
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+
+  orientdb:
+    image: orientdb:latest
+    container_name: orientdb
+    environment:
+      ORIENTDB_ROOT_PASSWORD: root
+    ports:
+      - "2424:2424"
+      - "2480:2480"
+
+  cockroachdb:
+    image: cockroachdb/cockroach:latest
+    container_name: cockroachdb
+    command: start-single-node --insecure
+    ports:
+      - "26257:26257"
+      - "8080:8080"
+
+  voltdb:
+    image: voltdb/voltdb-community:latest
+    container_name: voltdb
+    command: voltdb start
+    ports:
+      - "21212:21212"
+      - "8080:8080"
+      - "8081:8081"
+
+  tidb:
+    image: pingcap/tidb:latest
+    container_name: tidb
+    ports:
+      - "4000:4000"
+      - "10080:10080"
+    depends_on:
+      - tikv
+      - pd
+
+  tikv:
+    image: pingcap/tikv:latest
+    container_name: tikv
+    ports:
+      - "20160:20160"
+    depends_on:
+      - pd
+
+  pd:
+    image: pingcap/pd:latest
+    container_name: pd
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+
+volumes:
+  mongo-data:
