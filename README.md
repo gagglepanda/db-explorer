@@ -1,9 +1,26 @@
 OVERVIEW
 ========
 
-This project will help get you started understanding the tradeoffs of various data storage approaches.
+_WORK IN PROGRESS_
+
+The NoSQL movement confused many people. What happened is: new zones in the Brewer's CAP theorem space became feasible
+to use. The negative reaction to doing anything outside of the CP zone was viewed as too risky. This pushback caused an
+even greater pushback result in ACID/CP databases being viewed as too risky. Part of the goal of this document is to
+make all the different database types equal sized tools in the toolbox. This project will help get you started
+understanding the tradeoffs of various data storage approaches. The type of DB used should always be based upon:
+
+1. Size of a unit of data at rest and in motion.
+2. Security at rest and in motion.
+3. Access patterns (Read/Write ratio, some records read more than others?)
+4. Consistency requirements (is it ok for the customer to see the wrong quantity in their cart for a few seconds?)
+5. Horizontal scaling requirements (sharding, replicas, lambda architecture)
+6. Vertical scaling requirements (more CPU, RAM, disk, powerful EC2 instances)
+7. Pragmatically: existing infrastructure and expertise.
 
 `docker compose up`
+
+See the `clients/` directory for examples of how to interact with the databases.
+
 
 READING MATERIAL
 ----------------
